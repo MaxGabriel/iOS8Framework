@@ -10,6 +10,8 @@
 		50ED56461AB9F546009D7504 /* TestFramework2.h in Headers */ = {isa = PBXBuildFile; fileRef = 50ED56451AB9F546009D7504 /* TestFramework2.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		50ED564C1AB9F546009D7504 /* TestFramework2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50ED56401AB9F546009D7504 /* TestFramework2.framework */; };
 		50ED56531AB9F546009D7504 /* TestFramework2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 50ED56521AB9F546009D7504 /* TestFramework2Tests.m */; };
+		50ED565E1AB9F564009D7504 /* FooClass.h in Headers */ = {isa = PBXBuildFile; fileRef = 50ED565C1AB9F564009D7504 /* FooClass.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		50ED565F1AB9F564009D7504 /* FooClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 50ED565D1AB9F564009D7504 /* FooClass.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +31,8 @@
 		50ED564B1AB9F546009D7504 /* TestFramework2Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestFramework2Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		50ED56511AB9F546009D7504 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50ED56521AB9F546009D7504 /* TestFramework2Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestFramework2Tests.m; sourceTree = "<group>"; };
+		50ED565C1AB9F564009D7504 /* FooClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FooClass.h; sourceTree = "<group>"; };
+		50ED565D1AB9F564009D7504 /* FooClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FooClass.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,8 @@
 			isa = PBXGroup;
 			children = (
 				50ED56451AB9F546009D7504 /* TestFramework2.h */,
+				50ED565C1AB9F564009D7504 /* FooClass.h */,
+				50ED565D1AB9F564009D7504 /* FooClass.m */,
 				50ED56431AB9F546009D7504 /* Supporting Files */,
 			);
 			path = TestFramework2;
@@ -109,6 +115,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50ED565E1AB9F564009D7504 /* FooClass.h in Headers */,
 				50ED56461AB9F546009D7504 /* TestFramework2.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -124,6 +131,7 @@
 				50ED563C1AB9F546009D7504 /* Frameworks */,
 				50ED563D1AB9F546009D7504 /* Headers */,
 				50ED563E1AB9F546009D7504 /* Resources */,
+				503559851ABB84D40029EBAB /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -204,11 +212,28 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		503559851ABB84D40029EBAB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nDEVICE_BIN=\"${OBJROOT}/UninstalledProducts/${TARGET_NAME}.framework\"\nSIMULATOR_BIN=\"${SYMROOT}/../../../../Products/Debug-iphonesimulator/${TARGET_NAME}.framework\"\n\nARCHIVE_PATH=\"${SRCROOT}/_Archive\"\nrm -rf \"${ARCHIVE_PATH}\"\nmkdir \"${ARCHIVE_PATH}\"\n\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n\nif [ -d \"${DEVICE_BIN}\" ]; then\nDEVICE_PATH=\"${ARCHIVE_PATH}/Release\"\nmkdir \"${DEVICE_PATH}\"\ncp -r \"${DEVICE_BIN}\" \"${DEVICE_PATH}\"\n\nif [ -d \"${SIMULATOR_BIN}\" ]; then\nSIMULATOR_PATH=\"${ARCHIVE_PATH}/Debug\"\nmkdir \"${SIMULATOR_PATH}\"\ncp -r \"${DEVICE_BIN}\" \"${SIMULATOR_PATH}\"\nlipo -create \"${DEVICE_BIN}/${TARGET_NAME}\" \"${SIMULATOR_BIN}/${TARGET_NAME}\" -output \"${SIMULATOR_PATH}/${TARGET_NAME}.framework/${TARGET_NAME}\"\n\nfi\nfi\nfi\nexit 0;";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		50ED563B1AB9F546009D7504 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50ED565F1AB9F564009D7504 /* FooClass.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,6 +350,7 @@
 				INFOPLIST_FILE = TestFramework2/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -394,6 +420,7 @@
 				50ED56581AB9F546009D7504 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		50ED56591AB9F546009D7504 /* Build configuration list for PBXNativeTarget "TestFramework2Tests" */ = {
 			isa = XCConfigurationList;
@@ -402,6 +429,7 @@
 				50ED565B1AB9F546009D7504 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
